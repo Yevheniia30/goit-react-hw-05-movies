@@ -4,7 +4,7 @@
 // import PropTypes from 'prop-types';
 
 export const Home = props => {
-  return <div>Home</div>;
+  return <p>Welcome to movies search</p>;
 };
 
 Home.propTypes = {};

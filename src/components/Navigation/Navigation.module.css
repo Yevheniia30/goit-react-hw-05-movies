@@ -1,0 +1,22 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    padding: 30px;
+    border-bottom: 1px solid #acaaaa;
+   
+}
+
+.navlink{
+    text-decoration: none;
+    text-transform: uppercase;
+    /* color: #5383ec; */
+    color: #acaaaa;
+    
+    font-weight: bold;
+}
+.navlink:not(:last-child){
+    margin-right: 30px;
+}
+.active{
+    color: tomato
+}
