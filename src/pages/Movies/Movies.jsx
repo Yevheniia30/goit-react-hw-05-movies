@@ -1,8 +1,10 @@
 import s from './Movies.module.css';
 
 import { useState, useEffect } from 'react';
-import { getMoviesReq } from 'services/api';
+import { getMoviesReq, getMoviesSearchReq } from 'services/api';
 import { Search } from 'components/Search';
+import { Link } from 'react-router-dom';
+import { routes } from 'routes';
 
 // import React from 'react';
 // import PropTypes from 'prop-types';
@@ -10,12 +12,29 @@ import { Search } from 'components/Search';
 export const Movies = props => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [search, setSearch] = useState('');
+
+  // useEffect(() => {
+  //   const getMovies = async () => {
+  //     setIsLoading(true);
+  //     try {
+  //       const data = await getMoviesReq();
+  //       console.log('movies page data', data);
+  //       setMovies(data);
+  //     } catch (error) {
+  //       console.log('error');
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+  //   getMovies();
+  // }, []);
 
   useEffect(() => {
     const getMovies = async () => {
       setIsLoading(true);
       try {
-        const data = await getMoviesReq();
+        const data = await getMoviesSearchReq(search);
         console.log('movies page data', data);
         setMovies(data);
       } catch (error) {
@@ -24,19 +43,28 @@ export const Movies = props => {
         setIsLoading(false);
       }
     };
-    getMovies();
-  }, []);
+    if (search) {
+      getMovies();
+    }
+  }, [search]);
+
+  const handleSubmit = data => {
+    console.log('data', data);
+    setSearch(data);
+  };
 
   return (
     <div className={s.mWrapper}>
-      <Search />
+      <Search onSubmit={handleSubmit} />
       {isLoading ? (
         <p>isLoading...</p>
       ) : (
         <ul className={s.list}>
           {movies.map(item => (
             <li key={item.id} className={s.item}>
-              <h4 className={s.title}>{item.title}</h4>
+              <Link to={routes.moviedetails.replace(':movieId', item.id)}>
+                <span className={s.title}>{item.title}</span>
+              </Link>
 
               {/* <img src={ } /> */}
             </li>

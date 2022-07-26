@@ -2,12 +2,17 @@
     padding:  30px;
 }
 
-.item{
-    
-    cursor: pointer;
+.item:not(:last-child){
+    margin-bottom: 10px;
+
 }
 
-.item:hover,
-.item:focus{
+.title{
+    color: #cacaca;
+     cursor: pointer;
+}
+
+.title:hover,
+.title:focus{
     color: tomato;
 }
