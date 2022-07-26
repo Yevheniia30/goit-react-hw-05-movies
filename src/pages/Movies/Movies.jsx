@@ -1,7 +1,7 @@
 import s from './Movies.module.css';
 
 import { useState, useEffect } from 'react';
-import { getMoviesReq, getMoviesSearchReq } from 'services/api';
+import { getMoviesSearchReq } from 'services/api';
 import { Search } from 'components/Search';
 import { Link } from 'react-router-dom';
 import { routes } from 'routes';
