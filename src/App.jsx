@@ -8,6 +8,8 @@ import { MovieDetails } from 'pages/MovieDetails';
 import { routes } from 'routes';
 import { Navigation } from 'components/Navigation';
 import { NotFound } from 'pages/NotFound';
+import { Cast } from 'components/Cast';
+import { Reviews } from 'components/Reviews';
 // import { pagesRoutes } from 'pages/pagesRoutes';
 
 // console.log('pagesRoutes', pagesRoutes);
@@ -22,9 +24,10 @@ export const App = () => {
         // alignItems: 'center',
         // fontSize: 40,
         // color: '#010101',
-        backgroundColor: '#162133',
+        // backgroundColor: '#162133',
         color: '#cacaca',
         padding: '0 20px',
+        // height: '100%',
       }}
     >
       {/* <Routes>
@@ -40,7 +43,10 @@ export const App = () => {
           path={routes.moviedetails}
           exact="true"
           element={<MovieDetails />}
-        />
+        >
+          <Route path="cast" exact="true" element={<Cast />} />
+          <Route path="reviews" exact="true" element={<Reviews />} />
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

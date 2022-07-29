@@ -1,0 +1,14 @@
+.item:not(:last-child){
+    margin-bottom: 10px;
+
+}
+
+.title{
+    color: #cacaca;
+     cursor: pointer;
+}
+
+.title:hover,
+.title:focus{
+    color: tomato;
+}

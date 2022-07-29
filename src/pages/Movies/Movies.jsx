@@ -1,34 +1,21 @@
-import s from './Movies.module.css';
-
+// import s from './Movies.module.css';
+// import { useMatch } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getMoviesSearchReq } from 'services/api';
-import { Search } from 'components/Search';
-import { Link } from 'react-router-dom';
-import { routes } from 'routes';
+// import { Search } from 'components/Search';
+// import { Link } from 'react-router-dom';
+// import { routes } from 'routes';
+import { MoviesInfo } from 'components/MoviesInfo';
 
 // import React from 'react';
 // import PropTypes from 'prop-types';
 
-export const Movies = props => {
+export const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [search, setSearch] = useState('');
 
-  // useEffect(() => {
-  //   const getMovies = async () => {
-  //     setIsLoading(true);
-  //     try {
-  //       const data = await getMoviesReq();
-  //       console.log('movies page data', data);
-  //       setMovies(data);
-  //     } catch (error) {
-  //       console.log('error');
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-  //   getMovies();
-  // }, []);
+  // console.log('usematch', useMatch());
 
   useEffect(() => {
     const getMovies = async () => {
@@ -54,25 +41,11 @@ export const Movies = props => {
   };
 
   return (
-    <div className={s.mWrapper}>
-      <Search onSubmit={handleSubmit} />
-      {isLoading ? (
-        <p>isLoading...</p>
-      ) : (
-        <ul className={s.list}>
-          {movies.map(item => (
-            <li key={item.id} className={s.item}>
-              <Link to={routes.moviedetails.replace(':movieId', item.id)}>
-                <span className={s.title}>{item.title}</span>
-              </Link>
-
-              {/* <img src={ } /> */}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <MoviesInfo
+      isSearch={true}
+      handleSubmit={handleSubmit}
+      movies={movies}
+      isLoading={isLoading}
+    />
   );
 };
-
-Movies.propTypes = {};
