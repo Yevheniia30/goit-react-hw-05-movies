@@ -2,8 +2,13 @@
 
 import s from './MovieDetails.module.css';
 import { useState, useEffect } from 'react';
-import { useParams, Link, Outlet } from 'react-router-dom';
+import { useParams, Link, Outlet, useNavigate } from 'react-router-dom';
 import { getMovieByIdReq } from 'services/api';
+import { routes } from 'routes';
+import { Loader } from 'components/Loader';
+import { FaArrowLeft } from 'react-icons/fa';
+
+import { useLocation } from 'react-router-dom';
 // import defaultImage from '../../assets/defaultImage1.jpg';
 // import { Cast } from 'components/Cast';
 // import { Reviews } from 'components/Reviews';
@@ -11,18 +16,17 @@ import { getMovieByIdReq } from 'services/api';
 export const MovieDetails = () => {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  console.log(movie);
+  // console.log(movie);
+  const location = useLocation();
+  console.log('location', location);
 
-  console.log('useParams', useParams());
+  // console.log('useParams', useParams());
   const { movieId } = useParams();
   console.log('movieId', movieId);
 
-  // console.log('useMatch', useMatch());
-
   useEffect(() => {
-    // console.log('useefrct');
-
     const getMovieById = async () => {
       setIsLoading(true);
 
@@ -30,7 +34,7 @@ export const MovieDetails = () => {
         const data = await getMovieByIdReq(movieId);
         setMovie(data);
       } catch (error) {
-        console.log('error', error);
+        setError({ error });
       } finally {
         setIsLoading(false);
       }
@@ -38,45 +42,57 @@ export const MovieDetails = () => {
     getMovieById();
   }, [movieId]);
 
-  const { title, poster_path, overview, release_date, genres } = movie;
+  // const nav = useNavigate();
 
-  const genresStr = genres?.map(({ name }) => {
-    let name1 = '';
-    name1 += name;
-    return name1;
-  });
+  // const goBack = () => nav(-1);
 
-  console.log('genresStr', genresStr);
+  const { title, poster_path, vote_average, overview, release_date, genres } =
+    movie;
 
   return (
     <>
       {isLoading ? (
-        <p>Loading...</p>
+        <Loader />
+      ) : error ? (
+        <>
+          <p>Something went wrong. try again</p>
+          <Link to={routes.home} className={s.go}>
+            <span style={{ color: '#000' }}>Go to homepage</span>
+          </Link>
+        </>
       ) : (
         <div className={s.card}>
+          <Link to={location?.state?.from} className={s.go}>
+            <FaArrowLeft />
+            Go back
+          </Link>
           <img
-            src={
-              // poster_path
-              // ?
-              `https://image.tmdb.org/t/p/w300/${poster_path}`
-              // : defaultImage
-            }
+            src={`https://image.tmdb.org/t/p/w300/${poster_path}`}
             width="300"
             alt={title}
           />
           <h3 className={s.mainTitle}>{title}</h3>
           <b>{release_date?.slice(0, 4)}</b>
+          <p>User score: {Math.round(vote_average) * 10}%</p>
           <p>
-            {genresStr?.map(item => (
-              <span>{item?.toLowerCase()} </span>
+            {genres?.map(item => (
+              <span key={item.id}>{item.name?.toLowerCase()} </span>
             ))}
           </p>
-          <p>{overview}</p>
+          <p className={s.text}>{overview}</p>
           <div className={s.links}>
-            <Link to="cast" className={s.link}>
+            <Link
+              to={routes.cast}
+              state={{ from: location.state?.from }}
+              className={s.link}
+            >
               <span className={s.title}>Cast</span>
             </Link>
-            <Link to="reviews" className={s.link}>
+            <Link
+              to={routes.reviews}
+              state={{ from: location.state?.from }}
+              className={s.link}
+            >
               <span className={s.title}>Reviews</span>
             </Link>
           </div>

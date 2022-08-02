@@ -5,14 +5,28 @@ import s from './MoviesInfo.module.css';
 // import { routes } from 'routes';
 import { Search } from 'components/Search';
 import { MovieItem } from 'components/MovieItem';
+import { Loader } from 'components/Loader';
 
-export const MoviesInfo = ({ isSearch, handleSubmit, isLoading, movies }) => {
+export const MoviesInfo = ({
+  isSearch,
+  isHome,
+  handleSubmit,
+  isLoading,
+  movies,
+  error,
+  notFound,
+}) => {
   return (
     <div className={s.mWrapper}>
       {isSearch && <Search onSubmit={handleSubmit} />}
+      {isHome && <h2>Trending today</h2>}
 
       {isLoading ? (
-        <p>isLoading...</p>
+        <Loader />
+      ) : error ? (
+        <p>Something went wrong, try again</p>
+      ) : notFound ? (
+        <p>{notFound}</p>
       ) : (
         <ul className={s.list}>
           {movies.map(item => (

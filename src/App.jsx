@@ -1,4 +1,5 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { lazy } from 'react';
 
 import { Home } from 'pages/Home';
 import { Movies } from 'pages/Movies';
@@ -7,7 +8,7 @@ import { MovieDetails } from 'pages/MovieDetails';
 // import { Reviews } from 'components/Reviews';
 import { routes } from 'routes';
 import { Navigation } from 'components/Navigation';
-import { NotFound } from 'pages/NotFound';
+// import { NotFound } from 'pages/NotFound';
 import { Cast } from 'components/Cast';
 import { Reviews } from 'components/Reviews';
 // import { pagesRoutes } from 'pages/pagesRoutes';
@@ -30,11 +31,6 @@ export const App = () => {
         // height: '100%',
       }}
     >
-      {/* <Routes>
-        {pagesRoutes.map(({ element, path, exact }) => (
-          <Route key={path} path={path} exact={exact} element={element} />
-        ))}
-      </Routes> */}
       <Navigation />
       <Routes>
         <Route path={routes.home} exact="true" element={<Home />} />
@@ -44,10 +40,10 @@ export const App = () => {
           exact="true"
           element={<MovieDetails />}
         >
-          <Route path="cast" exact="true" element={<Cast />} />
-          <Route path="reviews" exact="true" element={<Reviews />} />
+          <Route path={routes.cast} exact="true" element={<Cast />} />
+          <Route path={routes.reviews} exact="true" element={<Reviews />} />
         </Route>
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<Navigate to={routes.home} replace />} />
       </Routes>
     </div>
   );

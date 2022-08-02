@@ -27,7 +27,7 @@ export const Cast = props => {
   return (
     <ul className={s.cast}>
       {cast.map(item => (
-        <li key={item.id}>
+        <li key={item.id} className={s.item}>
           <img
             src={
               item.profile_path

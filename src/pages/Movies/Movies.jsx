@@ -1,43 +1,52 @@
-// import s from './Movies.module.css';
-// import { useMatch } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getMoviesSearchReq } from 'services/api';
-// import { Search } from 'components/Search';
-// import { Link } from 'react-router-dom';
-// import { routes } from 'routes';
 import { MoviesInfo } from 'components/MoviesInfo';
+import { useSearchParams, useParams } from 'react-router-dom';
 
-// import React from 'react';
-// import PropTypes from 'prop-types';
-
-export const Movies = () => {
+export const Movies = props => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [search, setSearch] = useState('');
+  const [error, setError] = useState(null);
+  const [notFound, setNotFound] = useState(null);
+  // const [search, setSearch] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('query') ?? '';
 
-  // console.log('usematch', useMatch());
+  // console.log('matchPath', matchPath);
+  // console.log('useLocation', useLocation());
+  // const { pathname } = useLocation();
+  console.log('searchParams', searchParams);
+  console.log('useParams', useParams());
 
   useEffect(() => {
     const getMovies = async () => {
       setIsLoading(true);
+      setNotFound(null);
+      setError(null);
       try {
-        const data = await getMoviesSearchReq(search);
+        const data = await getMoviesSearchReq(query);
         console.log('movies page data', data);
-        setMovies(data);
+        if (!data.length) {
+          setNotFound(`No movies found for ${query}`);
+        } else setMovies(data);
       } catch (error) {
-        console.log('error');
+        setError({ error });
       } finally {
         setIsLoading(false);
       }
     };
-    if (search) {
+    if (query) {
       getMovies();
     }
-  }, [search]);
+  }, [query]);
 
-  const handleSubmit = data => {
-    console.log('data', data);
-    setSearch(data);
+  const handleSubmit = query => {
+    if (query === '') {
+      return;
+    }
+    // console.log('data', data);
+    // setSearch(query);
+    setSearchParams({ query });
   };
 
   return (
@@ -46,6 +55,8 @@ export const Movies = () => {
       handleSubmit={handleSubmit}
       movies={movies}
       isLoading={isLoading}
+      error={error}
+      notFound={notFound}
     />
   );
 };

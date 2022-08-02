@@ -1,0 +1,10 @@
+.rew:not(:last-child){
+    border-bottom: 1px solid #cacaca;
+}
+.rew{
+    padding: 0 0 15px;
+}
+
+.name{
+    font-weight: bold;
+}

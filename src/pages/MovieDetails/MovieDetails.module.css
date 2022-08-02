@@ -1,9 +1,11 @@
 .card{
     padding: 30px;
-    width: 50%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
 }
 .links{
-    margin: 30px 0 16px
+    margin: 30px 0 0
 }
 
 .mainTitle{
@@ -18,10 +20,9 @@ margin-top: 30px;
      
 }
 
-/* .link{ */
-    /* padding: 10px; */
-    /* border: 1px solid #cacaca; */
-/* } */
+/* .text{
+    width: 80%;
+} */
 
 .link:not(:last-child){
     margin-right: 20px;
@@ -29,4 +30,16 @@ margin-top: 30px;
 .title:hover,
 .title:focus{
     color: tomato;
+}
+.go{
+     margin-bottom: 30px;
+    width: 15%;
+    padding: 4px 0;
+     display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 6px;
+    background-color: #b4bcd3;
+    color: #162133;
+    cursor: pointer;
 }

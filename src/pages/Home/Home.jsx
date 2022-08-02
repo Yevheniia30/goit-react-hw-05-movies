@@ -5,6 +5,7 @@ import { MoviesInfo } from 'components/MoviesInfo';
 export const Home = () => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const getMovies = async () => {
@@ -14,7 +15,7 @@ export const Home = () => {
         console.log('movies page data', data);
         setMovies(data);
       } catch (error) {
-        console.log('error');
+        setError({ error });
       } finally {
         setIsLoading(false);
       }
@@ -22,5 +23,12 @@ export const Home = () => {
     getMovies();
   }, []);
 
-  return <MoviesInfo movies={movies} isLoading={isLoading} />;
+  return (
+    <MoviesInfo
+      isHome={true}
+      movies={movies}
+      isLoading={isLoading}
+      error={error}
+    />
+  );
 };

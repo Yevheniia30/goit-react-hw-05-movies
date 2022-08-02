@@ -25,14 +25,23 @@ export const Reviews = props => {
   }, [movieId]);
 
   return (
-    <ul className={s.cast}>
-      {reviews.map(item => (
-        <li key={item.id}>
-          <p>Author: {item.author}</p>
-          <p>{item.content}</p>
-        </li>
-      ))}
-    </ul>
+    <>
+      {!reviews.length ? (
+        <p>This movie has no reviews yet</p>
+      ) : (
+        <ul className={s.cast}>
+          {reviews.map(item => (
+            <li key={item.id} className={s.rew}>
+              <p>
+                <span className={s.name}>{item.author}</span> posted{' '}
+                {item.created_at.slice(0, 10)}:
+              </p>
+              <p>{item.content}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
   );
 };
 
