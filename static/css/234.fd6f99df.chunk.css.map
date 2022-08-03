@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/234.fd6f99df.chunk.css","mappings":"AAAA,qCACI,+BACJ,CACA,oBACI,gBACJ,CAEA,sBACI,eACJ","sources":["components/Reviews/Reviews.module.css"],"sourcesContent":[".rew:not(:last-child){\n    border-bottom: 1px solid #cacaca;\n}\n.rew{\n    padding: 0 0 15px;\n}\n\n.name{\n    font-weight: bold;\n}"],"names":[],"sourceRoot":""}
