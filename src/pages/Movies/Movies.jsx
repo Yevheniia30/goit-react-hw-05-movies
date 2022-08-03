@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { getMoviesSearchReq } from 'services/api';
 import { MoviesInfo } from 'components/MoviesInfo';
-import { useSearchParams, useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
-export const Movies = props => {
+const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -12,11 +12,8 @@ export const Movies = props => {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') ?? '';
 
-  // console.log('matchPath', matchPath);
-  // console.log('useLocation', useLocation());
-  // const { pathname } = useLocation();
-  console.log('searchParams', searchParams);
-  console.log('useParams', useParams());
+  // console.log('searchParams', searchParams);
+  // console.log('useParams', useParams());
 
   useEffect(() => {
     const getMovies = async () => {
@@ -25,7 +22,7 @@ export const Movies = props => {
       setError(null);
       try {
         const data = await getMoviesSearchReq(query);
-        console.log('movies page data', data);
+        // console.log('movies page data', data);
         if (!data.length) {
           setNotFound(`No movies found for ${query}`);
         } else setMovies(data);
@@ -41,11 +38,6 @@ export const Movies = props => {
   }, [query]);
 
   const handleSubmit = query => {
-    if (query === '') {
-      return;
-    }
-    // console.log('data', data);
-    // setSearch(query);
     setSearchParams({ query });
   };
 
@@ -60,3 +52,5 @@ export const Movies = props => {
     />
   );
 };
+
+export default Movies;

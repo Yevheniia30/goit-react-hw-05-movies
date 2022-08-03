@@ -1,50 +1,41 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { lazy } from 'react';
+import { lazy, Suspense } from 'react';
 
-import { Home } from 'pages/Home';
-import { Movies } from 'pages/Movies';
-import { MovieDetails } from 'pages/MovieDetails';
-// import { Cast } from 'components/Cast';
-// import { Reviews } from 'components/Reviews';
 import { routes } from 'routes';
 import { Navigation } from 'components/Navigation';
-// import { NotFound } from 'pages/NotFound';
-import { Cast } from 'components/Cast';
-import { Reviews } from 'components/Reviews';
-// import { pagesRoutes } from 'pages/pagesRoutes';
+import { Loader } from 'components/Loader';
 
-// console.log('pagesRoutes', pagesRoutes);
+const Home = lazy(() => import('./pages/Home'));
+const Movies = lazy(() => import('./pages/Movies'));
+const MovieDetails = lazy(() => import('./pages/MovieDetails'));
+const Cast = lazy(() => import('./components/Cast'));
+const Reviews = lazy(() => import('./components/Reviews'));
 
 export const App = () => {
   return (
     <div
       style={{
         height: '100vh',
-        // display: 'flex',
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        // fontSize: 40,
-        // color: '#010101',
-        // backgroundColor: '#162133',
         color: '#cacaca',
         padding: '0 20px',
-        // height: '100%',
       }}
     >
       <Navigation />
-      <Routes>
-        <Route path={routes.home} exact="true" element={<Home />} />
-        <Route path={routes.movies} exact="true" element={<Movies />} />
-        <Route
-          path={routes.moviedetails}
-          exact="true"
-          element={<MovieDetails />}
-        >
-          <Route path={routes.cast} exact="true" element={<Cast />} />
-          <Route path={routes.reviews} exact="true" element={<Reviews />} />
-        </Route>
-        <Route path="*" element={<Navigate to={routes.home} replace />} />
-      </Routes>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path={routes.home} exact="true" element={<Home />} />
+          <Route path={routes.movies} exact="true" element={<Movies />} />
+          <Route
+            path={routes.moviedetails}
+            exact="true"
+            element={<MovieDetails />}
+          >
+            <Route path={routes.cast} exact="true" element={<Cast />} />
+            <Route path={routes.reviews} exact="true" element={<Reviews />} />
+          </Route>
+          <Route path="*" element={<Navigate to={routes.home} replace />} />
+        </Routes>
+      </Suspense>
     </div>
   );
 };

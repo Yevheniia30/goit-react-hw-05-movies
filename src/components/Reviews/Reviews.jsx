@@ -1,21 +1,19 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getMovieReviewsReq } from 'services/api';
-// import defaultImg from '../../assets/defaultImage1.jpg';
-// import PropTypes from 'prop-types';
 import s from './Reviews.module.css';
 
-export const Reviews = props => {
+const Reviews = () => {
   const [reviews, setReviews] = useState([]);
 
   const { movieId } = useParams();
-  console.log('movieId', movieId);
+  // console.log('movieId', movieId);
 
   useEffect(() => {
     const getMovieReviews = async () => {
       try {
         const data = await getMovieReviewsReq(movieId);
-        console.log('data', data);
+        // console.log('data', data);
         setReviews(data);
       } catch (error) {
         console.log(error);
@@ -45,4 +43,4 @@ export const Reviews = props => {
   );
 };
 
-Reviews.propTypes = {};
+export default Reviews;

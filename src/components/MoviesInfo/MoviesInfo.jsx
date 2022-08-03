@@ -1,8 +1,5 @@
-// import React from 'react';
-// import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import s from './MoviesInfo.module.css';
-// import { routes } from 'routes';
 import { Search } from 'components/Search';
 import { MovieItem } from 'components/MovieItem';
 import { Loader } from 'components/Loader';

@@ -1,30 +1,27 @@
 // import PropTypes from 'prop-types';
 
 import s from './MovieDetails.module.css';
-import { useState, useEffect } from 'react';
-import { useParams, Link, Outlet, useNavigate } from 'react-router-dom';
+import { useState, useEffect, Suspense } from 'react';
+import { useParams, Link, Outlet } from 'react-router-dom';
 import { getMovieByIdReq } from 'services/api';
 import { routes } from 'routes';
 import { Loader } from 'components/Loader';
 import { FaArrowLeft } from 'react-icons/fa';
 
 import { useLocation } from 'react-router-dom';
-// import defaultImage from '../../assets/defaultImage1.jpg';
-// import { Cast } from 'components/Cast';
-// import { Reviews } from 'components/Reviews';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   // console.log(movie);
   const location = useLocation();
-  console.log('location', location);
+  // console.log('location', location);
 
   // console.log('useParams', useParams());
   const { movieId } = useParams();
-  console.log('movieId', movieId);
+  // console.log('movieId', movieId);
 
   useEffect(() => {
     const getMovieById = async () => {
@@ -42,10 +39,6 @@ export const MovieDetails = () => {
     getMovieById();
   }, [movieId]);
 
-  // const nav = useNavigate();
-
-  // const goBack = () => nav(-1);
-
   const { title, poster_path, vote_average, overview, release_date, genres } =
     movie;
 
@@ -62,7 +55,7 @@ export const MovieDetails = () => {
         </>
       ) : (
         <div className={s.card}>
-          <Link to={location?.state?.from} className={s.go}>
+          <Link to={location?.state?.from ?? routes.home} className={s.go}>
             <FaArrowLeft />
             Go back
           </Link>
@@ -96,12 +89,13 @@ export const MovieDetails = () => {
               <span className={s.title}>Reviews</span>
             </Link>
           </div>
-
-          <Outlet />
+          <Suspense fallback={<Loader />}>
+            <Outlet />
+          </Suspense>
         </div>
       )}
     </>
   );
 };
 
-// MovieDetails.propTypes = {};
+export default MovieDetails;

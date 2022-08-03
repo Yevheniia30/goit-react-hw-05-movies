@@ -13,7 +13,12 @@ export const Search = ({ onSubmit }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    onSubmit(search);
+    if (search.trim() !== '') {
+      onSubmit(search);
+      setSearch('');
+    } else {
+      alert('Enter query');
+    }
   };
 
   return (

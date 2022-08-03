@@ -2,20 +2,19 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getMovieCastReq } from 'services/api';
 import defaultImg from '../../assets/defaultImage1.jpg';
-// import PropTypes from 'prop-types';
 import s from './Cast.module.css';
 
-export const Cast = props => {
+const Cast = () => {
   const [cast, setCast] = useState([]);
 
   const { movieId } = useParams();
-  console.log('movieId', movieId);
+  // console.log('movieId', movieId);
 
   useEffect(() => {
     const getMovieCast = async () => {
       try {
         const data = await getMovieCastReq(movieId);
-        console.log('data', data);
+        // console.log('data', data);
         setCast(data);
       } catch (error) {
         console.log(error);
@@ -46,4 +45,4 @@ export const Cast = props => {
   );
 };
 
-Cast.propTypes = {};
+export default Cast;
