@@ -1,4 +1,5 @@
 import axios from 'axios';
+import PropTypes from 'prop-types'
 
 const key = 'c4360f2fc66490777a6befee451fce21';
 
@@ -37,3 +38,7 @@ export const getMovieReviewsReq = async id => {
   // console.log('data', data);
   return data.results;
 };
+
+getMovieReviewsReq.propTypes={
+  id: PropTypes.func.isRequired
+}

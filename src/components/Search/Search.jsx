@@ -35,6 +35,8 @@ export const Search = ({ onSubmit }) => {
         autoFocus
         placeholder="Search movies"
         onChange={handleChange}
+        
+
       />
     </form>
   );
