@@ -6,12 +6,13 @@ import { useLocation } from 'react-router-dom';
 
 export const MovieItem = ({ item }) => {
   const location = useLocation();
+  console.log('location', location);
 
   return (
     <li className={s.item}>
       <Link
         // to={routes.moviedetails.replace(':movieId', item.id)}
-        to={`${item.id}`}
+        to={location?.pathname==='/'? `/movies/${item.id}`: `${item.id}`}
         state={{ from: location }}
       >
         <span className={s.title}>{item.title ?? item.original_title}</span>
