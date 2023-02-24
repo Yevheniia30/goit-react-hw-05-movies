@@ -9,11 +9,14 @@ import { Loader } from 'components/Loader';
 import { FaArrowLeft } from 'react-icons/fa';
 
 import { useLocation } from 'react-router-dom';
+import { useLang } from 'hooks/useInterface';
+import local from 'local.json';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { language, lang } = useLang();
 
   // console.log(movie);
   const location = useLocation();
@@ -28,7 +31,7 @@ const MovieDetails = () => {
       setIsLoading(true);
 
       try {
-        const data = await getMovieByIdReq(movieId);
+        const data = await getMovieByIdReq(movieId, language);
         setMovie(data);
       } catch (error) {
         setError({ error });
@@ -37,7 +40,7 @@ const MovieDetails = () => {
       }
     };
     getMovieById();
-  }, [movieId]);
+  }, [movieId, language]);
 
   const { title, poster_path, vote_average, overview, release_date, genres } =
     movie;
@@ -57,7 +60,7 @@ const MovieDetails = () => {
         <div className={s.card}>
           <Link to={location?.state?.from ?? routes.home} className={s.go}>
             <FaArrowLeft />
-            Go back
+            {local.back[lang]}
           </Link>
           <img
             src={`https://image.tmdb.org/t/p/w300/${poster_path}`}
@@ -66,7 +69,9 @@ const MovieDetails = () => {
           />
           <h3 className={s.mainTitle}>{title}</h3>
           <b>{release_date?.slice(0, 4)}</b>
-          <p>User score: {Math.round(vote_average) * 10}%</p>
+          <p>
+            {local.score[lang]}: {Math.round(vote_average) * 10}%
+          </p>
           <p>
             {genres?.map(item => (
               <span key={item.id}>{item.name?.toLowerCase()} </span>
@@ -79,14 +84,14 @@ const MovieDetails = () => {
               state={{ from: location.state?.from }}
               className={s.link}
             >
-              <span className={s.title}>Cast</span>
+              <span className={s.title}>{local.cast[lang]}</span>
             </Link>
             <Link
               to={routes.reviews}
               state={{ from: location.state?.from }}
               className={s.link}
             >
-              <span className={s.title}>Reviews</span>
+              <span className={s.title}>{local.reviews[lang]}</span>
             </Link>
           </div>
           <Suspense fallback={<Loader />}>

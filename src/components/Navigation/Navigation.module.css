@@ -5,12 +5,16 @@
     border-bottom: 1px solid #acaaaa;
    
 }
+.light_header{
+    composes: header;
+    border-bottom: 1px solid black;
+}
 
 .navlink{
     text-decoration: none;
     text-transform: uppercase;
     /* color: #5383ec; */
-    color: #acaaaa;
+    /* color: #acaaaa; */
     
     font-weight: bold;
 }

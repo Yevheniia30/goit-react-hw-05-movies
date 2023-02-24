@@ -2,17 +2,19 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getMovieReviewsReq } from 'services/api';
 import s from './Reviews.module.css';
+import { useLang } from 'hooks/useInterface';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
 
   const { movieId } = useParams();
+  const { language } = useLang();
   // console.log('movieId', movieId);
 
   useEffect(() => {
     const getMovieReviews = async () => {
       try {
-        const data = await getMovieReviewsReq(movieId);
+        const data = await getMovieReviewsReq(movieId, language);
         // console.log('data', data);
         setReviews(data);
       } catch (error) {
@@ -20,7 +22,7 @@ const Reviews = () => {
       }
     };
     getMovieReviews();
-  }, [movieId]);
+  }, [movieId, language]);
 
   return (
     <>

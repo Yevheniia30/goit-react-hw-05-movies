@@ -3,6 +3,7 @@ import s from './MoviesInfo.module.css';
 import { Search } from 'components/Search';
 import { MovieItem } from 'components/MovieItem';
 import { Loader } from 'components/Loader';
+import local from 'local.json';
 
 export const MoviesInfo = ({
   isSearch,
@@ -12,11 +13,12 @@ export const MoviesInfo = ({
   movies,
   error,
   notFound,
+  lang,
 }) => {
   return (
     <div className={s.mWrapper}>
       {isSearch && <Search onSubmit={handleSubmit} />}
-      {isHome && <h2>Trending today</h2>}
+      {isHome && <h2>{local.trending[lang]}</h2>}
 
       {isLoading ? (
         <Loader />

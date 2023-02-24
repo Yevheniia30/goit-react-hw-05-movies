@@ -1,0 +1,31 @@
+{
+    "home":{
+        "ua": "Головна",
+        "en": "Home"
+    },
+    "movies":{
+        "ua": "Пошук фільмів",
+        "en": "Search"
+    },
+    "back":{
+        "ua": "Назад",
+        "en": "Go back"
+    },
+    "trending":{
+        "ua": "В тренді сьогодні",
+        "en": "Trending"
+    },
+    "reviews":{
+        "ua": "Рецензії",
+        "en": "Reviews"
+    },
+    "cast":{
+        "ua": "Акторський склад",
+        "en": "Cast"
+    },
+    "score":{
+        "ua": "Глядацький рейтинг",
+        "en": "User score"
+    }
+    
+}

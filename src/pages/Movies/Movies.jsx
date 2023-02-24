@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { getMoviesSearchReq } from 'services/api';
 import { MoviesInfo } from 'components/MoviesInfo';
 import { useSearchParams } from 'react-router-dom';
+import { useLang } from 'hooks/useInterface';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -11,6 +12,7 @@ const Movies = () => {
   // const [search, setSearch] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') ?? '';
+  const { language } = useLang();
 
   // console.log('searchParams', searchParams);
   // console.log('useParams', useParams());
@@ -21,7 +23,7 @@ const Movies = () => {
       setNotFound(null);
       setError(null);
       try {
-        const data = await getMoviesSearchReq(query);
+        const data = await getMoviesSearchReq(query, language);
         // console.log('movies page data', data);
         if (!data.length) {
           setNotFound(`No movies found for ${query}`);
@@ -35,7 +37,7 @@ const Movies = () => {
     if (query) {
       getMovies();
     }
-  }, [query]);
+  }, [query, language]);
 
   const handleSubmit = query => {
     setSearchParams({ query });

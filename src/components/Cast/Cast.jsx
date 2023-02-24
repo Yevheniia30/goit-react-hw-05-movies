@@ -3,17 +3,18 @@ import { useState, useEffect } from 'react';
 import { getMovieCastReq } from 'services/api';
 import defaultImg from '../../assets/defaultImage1.jpg';
 import s from './Cast.module.css';
+import { useLang } from 'hooks/useInterface';
 
 const Cast = () => {
   const [cast, setCast] = useState([]);
-
+  const { language } = useLang();
   const { movieId } = useParams();
   // console.log('movieId', movieId);
 
   useEffect(() => {
     const getMovieCast = async () => {
       try {
-        const data = await getMovieCastReq(movieId);
+        const data = await getMovieCastReq(movieId, language);
         // console.log('data', data);
         setCast(data);
       } catch (error) {
@@ -21,7 +22,7 @@ const Cast = () => {
       }
     };
     getMovieCast();
-  }, [movieId]);
+  }, [movieId, language]);
 
   return (
     <ul className={s.cast}>
