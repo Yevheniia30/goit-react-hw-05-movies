@@ -31,6 +31,7 @@ export const App = () => {
     // <LangProvider>
     <StyledApp theme={theme}>
       <Navigation />
+      <p>test</p>
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path={routes.home} exact="true" element={<Home />} />
